@@ -42,7 +42,7 @@ public class HalamanUtama extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Form");
+        jButton3.setText("Add Data");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);

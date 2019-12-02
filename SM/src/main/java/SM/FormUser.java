@@ -70,6 +70,7 @@ public class FormUser extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Nama");
 
+        jButton1.setBackground(new java.awt.Color(255, 0, 0));
         jButton1.setText("Delete");
 
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
@@ -81,6 +82,7 @@ public class FormUser extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Username");
 
+        jButton3.setBackground(new java.awt.Color(0, 255, 51));
         jButton3.setText("Update");
 
         jButton4.setText("New");

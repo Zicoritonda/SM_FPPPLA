@@ -90,11 +90,13 @@ public class FormData extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Data");
 
+        jButton1.setBackground(new java.awt.Color(255, 0, 0));
         jButton1.setText("Delete");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Nama Lengkap");
 
+        jButton3.setBackground(new java.awt.Color(0, 255, 51));
         jButton3.setText("Update");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
