@@ -5,6 +5,9 @@
  */
 package SM;
 
+import java.sql.*;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author zicor
@@ -70,6 +73,11 @@ public class FormUserBaru extends javax.swing.JFrame {
         jLabel8.setText("Email");
 
         jButton1.setText("Save");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,6 +184,79 @@ public class FormUserBaru extends javax.swing.JFrame {
         new UserTable().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        while(true){
+            User u = new User();
+            if(jTextField1.getText().isEmpty()){
+                JOptionPane.showMessageDialog(rootPane,"Username Kosong!");
+                break;
+            }
+            else{
+                u.username = jTextField1.getText();
+//                check = true;
+            }
+            if(jPasswordField1.getPassword().length == 0){
+                JOptionPane.showMessageDialog(rootPane,"Password Kosong!");
+                break;
+            }
+            else{
+                u.password = jPasswordField1.getPassword();
+//                check = true;
+            }
+            if(jTextField3.getText().isEmpty()){
+                JOptionPane.showMessageDialog(rootPane,"Nama Kosong!");
+                break;
+            }
+            else{
+                u.nama = jTextField3.getText();
+//                check = true;
+            }
+            if(jTextField4.getText().isEmpty()){
+                JOptionPane.showMessageDialog(rootPane,"Nomor HP Kosong!");
+                break;
+            }
+            else{
+                u.noHP = jTextField4.getText();
+//                check = true;
+            }
+            if(jTextField7.getText().isEmpty()){
+                JOptionPane.showMessageDialog(rootPane,"Email Kosong!");
+                break;
+            }
+            else{
+                u.email = jTextField7.getText();
+//                check = true;
+            }
+            
+            try{
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/schoolmanagement","root","");
+                
+                String sql = "insert into user values (default,?,?,?,?,?)";
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, u.username);
+                pstmt.setString(2, String.valueOf(u.password));
+                pstmt.setString(3, u.nama);
+                pstmt.setString(4, u.noHP);
+                pstmt.setString(5, u.email);
+                
+                pstmt.executeUpdate();
+                
+                //Jika data telah sesuai
+                JOptionPane.showMessageDialog(rootPane,"Successfully Registered!");
+            
+                conn.close();
+            } catch(Exception e){
+                JOptionPane.showMessageDialog(rootPane, e);
+            }
+
+            //Jika data telah sesuai
+            JOptionPane.showMessageDialog(rootPane,"Successfully Registered!");
+            break;
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

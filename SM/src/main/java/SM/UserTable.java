@@ -5,6 +5,10 @@
  */
 package SM;
 
+import java.sql.*;
+import javax.swing.JOptionPane;
+import javax.swing.table.*;
+
 /**
  *
  * @author zicor
@@ -16,6 +20,7 @@ public class UserTable extends javax.swing.JFrame {
      */
     public UserTable() {
         initComponents();
+        listUserTable();
     }
 
     /**
@@ -52,11 +57,11 @@ public class UserTable extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Username", "Password", "Nama", "No HP", "Email"
+                "ID", "Username", "Nama", "No HP", "Email"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -95,6 +100,39 @@ public class UserTable extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void listUserTable(){
+        //TODO
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/schoolmanagement","root","");
+
+            PreparedStatement ps = conn.prepareStatement("select * from user");
+            ResultSet rs = ps.executeQuery();
+            DefaultTableModel tm = new DefaultTableModel();
+            
+            tm.addColumn("ID");
+            tm.addColumn("Username");
+            tm.addColumn("Nama");
+            tm.addColumn("No HP");
+            tm.addColumn("Email");
+
+            while(rs.next()){
+                tm.addRow(new Object[]{
+                    rs.getInt("id"),
+                    rs.getString("username"),
+                    rs.getString("nama"),
+                    rs.getString("noHP"),
+                    rs.getString("email")
+                });
+            }
+            
+            jTable1.setModel(tm);
+
+        } catch(Exception e){
+               JOptionPane.showMessageDialog(rootPane, e);
+        }
+    }
+    
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:\
         this.setVisible(false);

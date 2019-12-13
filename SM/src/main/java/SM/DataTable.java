@@ -5,6 +5,10 @@
  */
 package SM;
 
+import java.sql.*;
+import javax.swing.JOptionPane;
+import javax.swing.table.*;
+
 /**
  *
  * @author zicor
@@ -16,6 +20,7 @@ public class DataTable extends javax.swing.JFrame {
      */
     public DataTable() {
         initComponents();
+        listDataTable();
     }
 
     /**
@@ -103,6 +108,46 @@ public class DataTable extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    public void listDataTable(){
+        //TODO
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/schoolmanagement","root","");
+
+            PreparedStatement ps = conn.prepareStatement("select * from data");
+            ResultSet rs = ps.executeQuery();
+            DefaultTableModel tm = new DefaultTableModel();
+            
+            tm.addColumn("ID");
+            tm.addColumn("Nama");
+            tm.addColumn("Tanggal Lahir");
+            tm.addColumn("Tempat lahir");
+            tm.addColumn("Jenis Kelamin");
+            tm.addColumn("Alamat");
+            tm.addColumn("No HP");
+            tm.addColumn("Email");
+
+            while(rs.next()){
+                tm.addRow(new Object[]{
+                    rs.getInt("id"),
+                    rs.getString("nama"),
+                    rs.getString("tgl_lahir"),
+                    rs.getString("tempat_lahir"),
+                    rs.getString("jk"),
+                    rs.getString("alamat"),
+                    rs.getString("noHP"),
+                    rs.getString("email")
+                });
+            }
+            
+            jTable1.setModel(tm);
+
+        } catch(Exception e){
+               JOptionPane.showMessageDialog(rootPane, e);
+        }
+    }
+    
+    
     /**
      * @param args the command line arguments
      */

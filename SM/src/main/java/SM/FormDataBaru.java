@@ -5,6 +5,8 @@
  */
 package SM;
 
+import javax.swing.JOptionPane;
+import java.sql.*;
 /**
  *
  * @author zicor
@@ -41,8 +43,8 @@ public class FormDataBaru extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        laki = new javax.swing.JRadioButton();
+        perempuan = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -74,16 +76,38 @@ public class FormDataBaru extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Email");
 
-        jRadioButton1.setText("Laki-laki");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                jTextField1ActionPerformed(evt);
             }
         });
 
-        jRadioButton2.setText("Perempuan");
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+
+        laki.setText("Laki-laki");
+        laki.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lakiActionPerformed(evt);
+            }
+        });
+
+        perempuan.setText("Perempuan");
+        perempuan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                perempuanActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Save");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setIcon(new javax.swing.ImageIcon("D:\\Folder\\Kuliah\\PPL A Smt. 5\\SM_FPPPLA\\Assets\\1x\\back.png")); // NOI18N
         jButton2.setBorderPainted(false);
@@ -126,9 +150,9 @@ public class FormDataBaru extends javax.swing.JFrame {
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
+                                .addComponent(laki)
                                 .addGap(18, 18, 18)
-                                .addComponent(jRadioButton2))
+                                .addComponent(perempuan))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jButton1)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -164,8 +188,8 @@ public class FormDataBaru extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(laki)
+                    .addComponent(perempuan))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -186,9 +210,12 @@ public class FormDataBaru extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void lakiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lakiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+        if(laki.isSelected()){
+            perempuan.setSelected(false);
+        }
+    }//GEN-LAST:event_lakiActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -203,6 +230,119 @@ public class FormDataBaru extends javax.swing.JFrame {
         new HalamanUtama().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        while(true){
+            Siswa s = new Siswa();
+            if(jTextField1.getText().isEmpty()){
+                JOptionPane.showMessageDialog(rootPane,"Nama Kosong!");
+                break;
+            }
+            else{
+                s.namaLengkap = jTextField1.getText();
+//                check = true;
+            }
+            if(jTextField2.getText().isEmpty()){
+                JOptionPane.showMessageDialog(rootPane,"Tanggal Lahir Kosong!");
+                break;
+            }
+            else{
+                s.tglLahir = jTextField2.getText();
+//                check = true;
+            }
+            if(jTextField3.getText().isEmpty()){
+                JOptionPane.showMessageDialog(rootPane,"Tempat Lahir Kosong!");
+                break;
+            }
+            else{
+                s.tempatLahir = jTextField3.getText();
+//                check = true;
+            }
+            if(perempuan.isSelected()){
+                s.jenisKel = "P";
+//                check = true;
+            } else if(laki.isSelected()){
+                s.jenisKel = "L";
+//                check = true;
+            } else {
+                JOptionPane.showMessageDialog(rootPane,"Jenis Kelamin Kosong!");
+                break;
+            }
+            if(jTextField5.getText().isEmpty()){
+                JOptionPane.showMessageDialog(rootPane,"Alamat Kosong!");
+                break;
+            }
+            else{
+                s.alamat = jTextField5.getText();
+//                check = true;
+            }
+            if(jTextField6.getText().isEmpty()){
+                JOptionPane.showMessageDialog(rootPane,"Nomor HP Kosong!");
+                break;
+            }
+            else{
+                s.noHP = jTextField6.getText();
+//                check = true;
+            }
+            if(jTextField7.getText().isEmpty()){
+                JOptionPane.showMessageDialog(rootPane,"Email Kosong!");
+                break;
+            }
+            else{
+                s.email = jTextField7.getText();
+//                check = true;
+            }
+            
+            try{
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/schoolmanagement","root","");
+                
+                String sql = "insert into data values (default,?,?,?,?,?,?,?)";
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, s.namaLengkap);
+                pstmt.setString(2, s.tglLahir);
+                pstmt.setString(3, s.tempatLahir);
+                pstmt.setString(4, s.jenisKel);
+                pstmt.setString(5, s.email);
+                pstmt.setString(6, s.noHP);
+                pstmt.setString(7, s.email);
+                
+                pstmt.executeUpdate();
+                
+                //Jika data telah sesuai
+                JOptionPane.showMessageDialog(rootPane,"Successfully Registered!");
+            
+                conn.close();
+            } catch(Exception e){
+                JOptionPane.showMessageDialog(rootPane, e);
+            }
+            
+//            DataTable.listDataTable();
+            
+            break;
+        }
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void perempuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perempuanActionPerformed
+        // TODO add your handling code here:
+        if(perempuan.isSelected()){
+            laki.setSelected(false);
+        }
+    }//GEN-LAST:event_perempuanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,13 +391,13 @@ public class FormDataBaru extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JRadioButton laki;
+    private javax.swing.JRadioButton perempuan;
     // End of variables declaration//GEN-END:variables
 }
