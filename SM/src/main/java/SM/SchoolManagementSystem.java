@@ -10,5 +10,8 @@ package SM;
  * @author zicor
  */
 public class SchoolManagementSystem {
-    
+    public static void main(String[] args) {
+        HalamanUtama window = new HalamanUtama();
+        window.setVisible(true);
+    }   
 }
