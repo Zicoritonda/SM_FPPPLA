@@ -5,6 +5,11 @@
  */
 package SM;
 
+import static SM.DataTable.dataSelected;
+import java.sql.*;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author zicor
@@ -16,6 +21,7 @@ public class FormData extends javax.swing.JFrame {
      */
     public FormData() {
         initComponents();
+        setData();
     }
 
     /**
@@ -39,16 +45,16 @@ public class FormData extends javax.swing.JFrame {
         jTextField7 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        laki = new javax.swing.JRadioButton();
         jTextField2 = new javax.swing.JTextField();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        perempuan = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,14 +88,19 @@ public class FormData extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Email");
 
-        jRadioButton1.setText("Laki-laki");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        laki.setText("Laki-laki");
+        laki.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                lakiActionPerformed(evt);
             }
         });
 
-        jRadioButton2.setText("Perempuan");
+        perempuan.setText("Perempuan");
+        perempuan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                perempuanActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -97,6 +108,11 @@ public class FormData extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(255, 0, 0));
         jButton1.setText("Delete");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Nama Lengkap");
@@ -115,6 +131,9 @@ public class FormData extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setText("jLabel10");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,22 +161,21 @@ public class FormData extends javax.swing.JFrame {
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
+                                .addComponent(laki)
                                 .addGap(18, 18, 18)
-                                .addComponent(jRadioButton2))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(perempuan))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jButton3)
                                     .addGap(18, 18, 18)
                                     .addComponent(jButton1))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jTextField2)
-                                    .addComponent(jTextField3)
-                                    .addComponent(jTextField5)
-                                    .addComponent(jTextField6)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                                .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(148, 148, 148))
         );
         layout.setVerticalGroup(
@@ -169,10 +187,10 @@ public class FormData extends javax.swing.JFrame {
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel10))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -188,8 +206,8 @@ public class FormData extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(laki)
+                    .addComponent(perempuan))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -211,13 +229,80 @@ public class FormData extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void setData(){
+        JOptionPane.showMessageDialog(rootPane, dataSelected);
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/schoolmanagement","root","");
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+            PreparedStatement ps = conn.prepareStatement("select * from data where data.id=?");
+            ps.setInt(1,dataSelected);
+            ResultSet rs = ps.executeQuery();
+            
+            rs.next();
+//            
+            s.idSiswa = rs.getInt("id");
+            s.namaLengkap = rs.getString("nama");
+            s.tglLahir = rs.getString("tgl_lahir");
+            s.tempatLahir = rs.getString("tempat_lahir");
+            s.jenisKel = rs.getString("jk");
+            s.alamat = rs.getString("alamat");
+            s.noHP = rs.getString("noHP");
+            s.email = rs.getString("Email");
+            JOptionPane.showMessageDialog(rootPane, s.jenisKel);
+            jLabel10.setText(String.valueOf(s.idSiswa));
+            jTextField4.setText(s.namaLengkap);
+            jTextField2.setText(s.tglLahir);
+            jTextField3.setText(s.tempatLahir);
+            if(s.jenisKel.equals("L")){
+                laki.setSelected(true);
+            } else{
+                perempuan.setSelected(true);
+            }
+            jTextField5.setText(s.alamat);
+            jTextField6.setText(s.noHP);
+            jTextField7.setText(s.email);
 
+        } catch(Exception e){
+               JOptionPane.showMessageDialog(rootPane, e);
+        }
+        
+        
+    }
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/schoolmanagement","root","");
+
+            PreparedStatement ps = conn.prepareStatement("UPDATE data SET nama=?, tgl_lahir=?, tempat_lahir=?, jk=?, alamat=?, noHP=?, email=? where id=?");
+            
+            ps.setString(1, jTextField4.getText());
+            ps.setString(2, jTextField2.getText());
+            ps.setString(3, jTextField3.getText());
+            if(perempuan.isSelected()){
+                s.jenisKel = "P";
+                ps.setString(4, s.jenisKel);
+//                check = true;
+            } else if(laki.isSelected()){
+                s.jenisKel = "L";
+                ps.setString(4, s.jenisKel);
+//                check = true;
+            }
+            ps.setString(5, jTextField5.getText());
+            ps.setString(6, jTextField6.getText());
+            ps.setString(7, jTextField7.getText());
+            ps.setInt(8, s.idSiswa);
+            
+            ps.executeUpdate();
+            
+            //Jika data telah sesuai
+            JOptionPane.showMessageDialog(rootPane,"Successfully Update Data!");
+        } catch(Exception e){
+               JOptionPane.showMessageDialog(rootPane, e);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -230,9 +315,46 @@ public class FormData extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        new HalamanUtama().setVisible(true);
+        new DataTable().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void lakiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lakiActionPerformed
+        // TODO add your handling code here:
+        if(laki.isSelected()){
+            perempuan.setSelected(false);
+        }
+    }//GEN-LAST:event_lakiActionPerformed
+
+    private void perempuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perempuanActionPerformed
+        // TODO add your handling code here:
+        if(perempuan.isSelected()){
+            laki.setSelected(false);
+        }
+    }//GEN-LAST:event_perempuanActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/schoolmanagement","root","");
+
+            PreparedStatement ps = conn.prepareStatement("delete from data where id=?");
+            ps.setInt(1, s.idSiswa);
+            
+            ps.execute();
+            
+            //Jika data telah sesuai
+            JOptionPane.showMessageDialog(rootPane,"Successfully Delete Data!");
+            
+            //Balik ke DataTable
+            this.setVisible(false);
+            new DataTable().setVisible(true);
+            dispose();
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -275,6 +397,7 @@ public class FormData extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -283,14 +406,14 @@ public class FormData extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JRadioButton laki;
+    private javax.swing.JRadioButton perempuan;
     // End of variables declaration//GEN-END:variables
+    private Siswa s = new Siswa();
 }

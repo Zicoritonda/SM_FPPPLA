@@ -234,26 +234,36 @@ public class FormUserBaru extends javax.swing.JFrame {
                 Class.forName("com.mysql.jdbc.Driver");
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/schoolmanagement","root","");
                 
-                String sql = "insert into user values (default,?,?,?,?,?)";
-                PreparedStatement pstmt = conn.prepareStatement(sql);
+                //check username
+                PreparedStatement pstmt = conn.prepareStatement("select * from user where username=?");
                 pstmt.setString(1, u.username);
-                pstmt.setString(2, String.valueOf(u.password));
-                pstmt.setString(3, u.nama);
-                pstmt.setString(4, u.noHP);
-                pstmt.setString(5, u.email);
+                ResultSet rs = pstmt.executeQuery();
                 
-                pstmt.executeUpdate();
-                
-                //Jika data telah sesuai
-                JOptionPane.showMessageDialog(rootPane,"Successfully Registered!");
+                if (rs.next() == false) {
+                    String sql = "insert into user values (default,?,?,?,?,?)";
+                    pstmt = conn.prepareStatement(sql);
+                    pstmt.setString(1, u.username);
+                    pstmt.setString(2, String.valueOf(u.password));
+                    pstmt.setString(3, u.nama);
+                    pstmt.setString(4, u.noHP);
+                    pstmt.setString(5, u.email);
+
+                    pstmt.executeUpdate();
+
+                    //Jika data telah sesuai
+                    JOptionPane.showMessageDialog(rootPane,"Successfully Registered!");
             
+                }
+                else{
+                    JOptionPane.showMessageDialog(rootPane,"Username Exist");
+                }
+                
+                
                 conn.close();
             } catch(Exception e){
                 JOptionPane.showMessageDialog(rootPane, e);
             }
-
-            //Jika data telah sesuai
-            JOptionPane.showMessageDialog(rootPane,"Successfully Registered!");
+            
             break;
         }
     }//GEN-LAST:event_jButton1ActionPerformed

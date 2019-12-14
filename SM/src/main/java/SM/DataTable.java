@@ -18,6 +18,7 @@ public class DataTable extends javax.swing.JFrame {
     /**
      * Creates new form DataTable
      */
+    
     public DataTable() {
         initComponents();
         listDataTable();
@@ -56,6 +57,11 @@ public class DataTable extends javax.swing.JFrame {
             }
         });
         jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -107,6 +113,15 @@ public class DataTable extends javax.swing.JFrame {
         new HalamanUtama().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        dataSelected = jTable1.getSelectedRow() + 1;
+        JOptionPane.showMessageDialog(rootPane, dataSelected);
+        this.setVisible(false);
+        new FormData().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jTable1MouseClicked
 
     public void listDataTable(){
         //TODO
@@ -189,4 +204,6 @@ public class DataTable extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+    //Public
+    public static int dataSelected = 0;
 }

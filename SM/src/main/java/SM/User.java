@@ -10,6 +10,7 @@ package SM;
  * @author zicor
  */
 public class User {
+    int idUser;
     String username;
     char[] password;
     String nama;
