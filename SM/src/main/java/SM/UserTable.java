@@ -148,7 +148,7 @@ public class UserTable extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         userSelected = jTable1.getSelectedRow() + 1;
-        JOptionPane.showMessageDialog(rootPane, userSelected);
+//        JOptionPane.showMessageDialog(rootPane, userSelected);
         this.setVisible(false);
         new FormUser().setVisible(true);
         dispose();

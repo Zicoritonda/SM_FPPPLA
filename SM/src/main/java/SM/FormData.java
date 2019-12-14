@@ -231,7 +231,7 @@ public class FormData extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void setData(){
-        JOptionPane.showMessageDialog(rootPane, dataSelected);
+//        JOptionPane.showMessageDialog(rootPane, dataSelected);
         try{
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/schoolmanagement","root","");
@@ -250,7 +250,7 @@ public class FormData extends javax.swing.JFrame {
             s.alamat = rs.getString("alamat");
             s.noHP = rs.getString("noHP");
             s.email = rs.getString("Email");
-            JOptionPane.showMessageDialog(rootPane, s.jenisKel);
+//            JOptionPane.showMessageDialog(rootPane, s.jenisKel);
             jLabel10.setText(String.valueOf(s.idSiswa));
             jTextField4.setText(s.namaLengkap);
             jTextField2.setText(s.tglLahir);

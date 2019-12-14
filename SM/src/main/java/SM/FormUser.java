@@ -193,7 +193,7 @@ public class FormUser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void setUser(){
-        JOptionPane.showMessageDialog(rootPane, userSelected);
+//        JOptionPane.showMessageDialog(rootPane, userSelected);
         try{
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/schoolmanagement","root","");

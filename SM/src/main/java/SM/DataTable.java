@@ -117,7 +117,7 @@ public class DataTable extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         dataSelected = jTable1.getSelectedRow() + 1;
-        JOptionPane.showMessageDialog(rootPane, dataSelected);
+//        JOptionPane.showMessageDialog(rootPane, dataSelected);
         this.setVisible(false);
         new FormData().setVisible(true);
         dispose();
